@@ -407,13 +407,26 @@ function voltearVertical(matriz) {
  * const rotada = rotar90Grados(matriz);
  */
 function rotar90Grados(matriz) {
-  // TODO: Implementar rotación de 90 grados
-  
-  // Opción 1: Hacer transpuesta manualmente considerando que son objetos
-  // Opción 2: Construir directamente la matriz rotada
-  //   nuevoPixel[j][alto - 1 - i] = pixelOriginal[i][j]
-  
-  return []; // REEMPLAZAR
+  const alto = matriz.length;
+  const ancho = matriz[0].length;
+  // 1. Crear matriz transpuesta (tamaño [ancho][alto])
+  const transpuesta = [];
+  for (let j = 0; j < ancho; j++) {
+    const fila = [];
+    for (let i = 0; i < alto; i++) {
+      // Copia del pixel (no referencia)
+      fila.push({ ...matriz[i][j] });
+    }
+    transpuesta.push(fila);
+  }
+
+  // 2. Voltear horizontalmente la transpuesta
+  for (let i = 0; i < transpuesta.length; i++) {
+    transpuesta[i].reverse();
+  }
+
+  // Ahora transpuesta es la matriz rotada 90° sentido horario
+  return transpuesta;
 }
 
 // ============================================
