@@ -454,21 +454,37 @@ function rotar90Grados(matriz) {
  * const mezcla = mezclarImagenes(imagen1, imagen2, 0.5); // 50/50
  */
 function mezclarImagenes(matriz1, matriz2, factor) {
-  // TODO: Implementar mezcla de imágenes
-  
-  // 1. Verificar que tengan las mismas dimensiones
-  // const dims1 = obtenerDimensiones(matriz1);
-  // const dims2 = obtenerDimensiones(matriz2);
-  // if (dims1.filas !== dims2.filas || dims1.columnas !== dims2.columnas) {
-  //   throw new Error('Las imágenes deben tener el mismo tamaño');
-  // }
-  
-  // 2. Para cada pixel:
-  // r = r1 * (1 - factor) + r2 * factor
-  // g = g1 * (1 - factor) + g2 * factor
-  // b = b1 * (1 - factor) + b2 * factor
-  
-  return []; // REEMPLAZAR
+  // 1. Verificar mismas dimensiones
+  const dims1 = obtenerDimensiones(matriz1);
+  const dims2 = obtenerDimensiones(matriz2);
+
+  if (dims1.filas !== dims2.filas || dims1.columnas !== dims2.columnas) {
+    throw new Error("Las imágenes deben tener el mismo tamaño");
+  }
+
+  // 2. Crear matriz resultado
+  const resultado = copiarMatriz(matriz1);
+
+  const filas = dims1.filas;
+  const columnas = dims1.columnas;
+
+  // 3. Combinar linealmente cada pixel
+  for (let i = 0; i < filas; i++) {
+    for (let j = 0; j < columnas; j++) {
+
+      const p1 = matriz1[i][j];
+      const p2 = matriz2[i][j];
+
+      resultado[i][j] = {
+        r: limitarValorColor(p1.r * (1 - factor) + p2.r * factor),
+        g: limitarValorColor(p1.g * (1 - factor) + p2.g * factor),
+        b: limitarValorColor(p1.b * (1 - factor) + p2.b * factor),
+        a: limitarValorColor(p1.a * (1 - factor) + p2.a * factor) // puedes dejar alpha así o no mezclarlo
+      };
+    }
+  }
+
+  return resultado;
 }
 
 /**
