@@ -268,9 +268,22 @@ function ajustarBrillo(matriz, factor) {
  * // Rojo (255,0,0) → Cian (0,255,255)
  */
 function invertirColores(matriz) {
-  // TODO: Implementar inversión de colores
-  
-  return []; // REEMPLAZAR
+  // Crear una copia profunda de la matriz
+  const resultado = copiarMatriz(matriz);
+
+  // Recorrer cada píxel e invertir sus canales RGB
+  for (let i = 0; i < resultado.length; i++) {
+    for (let j = 0; j < resultado[i].length; j++) {
+      const pixel = matriz[i][j];
+
+      resultado[i][j].r = 255 - pixel.r;
+      resultado[i][j].g = 255 - pixel.g;
+      resultado[i][j].b = 255 - pixel.b;
+      // El canal alpha (a) no se modifica
+    }
+  }
+
+  return resultado;
 }
 
 /**
